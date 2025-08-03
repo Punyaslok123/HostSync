@@ -1,0 +1,316 @@
+<%- include('../partials/head') %>
+<style>
+  /* Custom animations and enhanced styling */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+
+  .message-bubble {
+    animation: fadeInUp 0.3s ease-out;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .sender-bubble {
+    background: linear-gradient(135deg, #dcf8c6 0%, #d4f5c4 100%);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  }
+
+  .receiver-bubble {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  }
+
+  .chat-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  } 
+
+  .chat-input-container {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .send-button {
+    background: linear-gradient(135deg, #25d366 0%, #22c55e 100%);
+    transition: all 0.3s ease;
+  }
+
+  .send-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+  }
+
+  .send-button:active {
+    animation: pulse 0.2s ease;
+  }
+
+  .message-input {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .message-input:focus {
+    border-color: #25d366;
+    box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+    transform: translateY(-1px);
+  }
+
+  .chat-background {
+    background: linear-gradient(135deg, #e5ddd5 0%, #d9d0c7 100%);
+    position: relative;
+  }
+
+  .chat-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .time-badge {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    padding: 2px 8px;
+    backdrop-filter: blur(5px);
+  }
+
+  .tick-mark {
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  }
+
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .message-container:hover .message-bubble {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  }
+
+  .emoji-header {
+    font-size: 1.5rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  }
+</style>
+</head>
+<body class="chat-background min-h-screen flex flex-col">
+
+  <%- include('../partials/nav') %>
+
+  <div class="w-full h-screen flex flex-col flex-grow shadow-2xl">
+
+    
+    <div class="chat-header text-center py-4 px-6 bg-green-500">
+      <div class="flex items-center justify-center gap-3">
+        <span class="emoji-header">💬</span>
+        <h2 class="text-xl font-bold text-gray-800">
+          Chat about <%= thread.home.houseName %>
+        </h2>
+      </div>
+    </div>
+    
+    <div id="chat-box" class="flex-1 overflow-y-auto p-6 space-y-4 scrollbar-hide">
+  <% 
+    let previousDate = null;
+    const today = new Date().toDateString();
+    const yesterday = new Date(Date.now() - 86400000).toDateString();
+
+    messages.forEach((msg) => {
+      const msgDate = new Date(msg.createdAt).toDateString();
+      const isSender = msg.sender._id.toString() === currentUserId.toString();
+
+      
+      const showDateSeparator = msgDate !== previousDate;
+      previousDate = msgDate;
+
+      let dateLabel = msgDate;
+      if (msgDate === today) dateLabel = "Today";
+      else if (msgDate === yesterday) dateLabel = "Yesterday";
+  %>
+
+    <% if (showDateSeparator) { %>
+      <div class="text-center text-xs text-gray-600 my-2 font-medium">
+        <span class="bg-white px-3 py-1 rounded-full shadow-sm inline-block"><%= dateLabel %></span>
+      </div>
+    <% } %>
+
+    <div class="message-container w-full flex <%= isSender ? 'justify-end' : 'justify-start' %>">
+      <div class="message-bubble <%= isSender ? 'sender-bubble' : 'receiver-bubble' %> relative max-w-[85%] px-5 py-3 rounded-2xl <%= isSender ? 'rounded-br-md' : 'rounded-bl-md' %> transition-all duration-300">
+        <p class="text-sm leading-relaxed break-words text-gray-800"><%= msg.message %></p>
+        <div class="flex items-center justify-end gap-1 mt-1">
+          <div class="time-badge text-xs text-gray-500">
+            <%= new Date(msg.createdAt).toLocaleTimeString("en-IN", {
+              hour: '2-digit',
+              minute: '2-digit',
+              hour12: true
+            }) %>
+          </div>
+          <% if (isSender) { %>
+            <span class="tick-mark text-xs <%= msg.seen ? 'text-blue-500' : 'text-gray-400' %>">
+              <%- msg.seen ? '&#10003;&#10003;' : '&#10003;' %>
+            </span>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+  <% }); %>
+</div>
+
+
+    <div class="chat-input-container px-6 py-4">
+      <form id="chat-form" class="flex gap-3 items-end">
+        <input
+          type="text"
+          name="message"
+          id="messageInput"
+          placeholder="Type your message..."
+          class="message-input flex-1 px-4 py-3 rounded-2xl focus:outline-none text-gray-800 placeholder-gray-500"
+          required
+        />
+        <button
+          type="submit"
+          class="send-button text-white px-6 py-3 rounded-2xl font-medium focus:outline-none focus:ring-4 focus:ring-green-200">
+          <span class="flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+            </svg>
+            Send
+          </span>
+        </button>
+      </form>
+    </div>
+
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script> 
+  <script>
+    const threadId = "<%= thread._id%>";
+    const currentUserId = "<%= currentUserId %>";
+    const socket = io();
+    const notificationSound = new Audio(
+    "/sounds/mixkit-software-interface-remove-2576.wav"
+  );
+    socket.emit("joinroom", threadId);
+
+    socket.on("messageSeen", (data) => {
+      const myBubbles = document.querySelectorAll('#chat-box .flex.justify-end .relative');
+      myBubbles.forEach(bubble => {
+        const oldTick = bubble.querySelector("span.tick-mark");
+        if (oldTick) {
+          oldTick.innerHTML = "&#10003;&#10003;";
+          oldTick.classList.remove("text-gray-400");
+          oldTick.classList.add("text-blue-500");
+        }
+      });
+    });
+
+    socket.emit("markSeen", { threadId, userId: currentUserId });
+
+    const form = document.getElementById("chat-form");
+    const input = document.getElementById("messageInput");
+    const chatBox = document.getElementById("chat-box");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const message = input.value.trim();
+      if (!message) return;
+      socket.emit("sendMessage", {
+        room: threadId,
+        sender: currentUserId,
+        type: "<%= user.UserType %>",
+        message: message,
+      });
+      input.value = "";
+    });
+
+    socket.on("receiveMessage", (msg) => {
+      notificationSound.play();
+      const isMine = msg.sender === currentUserId;
+
+      const msgDiv = document.createElement("div");
+      msgDiv.classList.add("message-container", "w-full", "flex", isMine ? "justify-end" : "justify-start");
+
+      const bubble = document.createElement("div");
+      bubble.classList.add("message-bubble", "relative", "max-w-[85%]", "px-5", "py-3", "rounded-2xl", "transition-all", "duration-300");
+      bubble.classList.add(isMine ? "sender-bubble" : "receiver-bubble");
+      bubble.classList.add(isMine ? "rounded-br-md" : "rounded-bl-md");
+
+      const messageText = document.createElement("p");
+      messageText.classList.add("text-sm", "leading-relaxed", "break-words", "text-gray-800");
+      messageText.textContent = msg.message;
+      bubble.appendChild(messageText);
+
+      const timeContainer = document.createElement("div");
+      timeContainer.classList.add("flex", "items-center", "justify-end", "gap-1", "mt-1");
+
+      const createdAt = new Date(msg.createdAt);
+      const timeDiv = document.createElement("div");
+      timeDiv.classList.add("time-badge", "text-xs", "text-gray-500");
+      timeDiv.textContent = createdAt.toLocaleTimeString("en-IN", {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+      });
+      timeContainer.appendChild(timeDiv);
+
+      if (isMine) {
+        const tick = document.createElement("span");
+        tick.classList.add("tick-mark", "text-xs", msg.seen ? "text-blue-500" : "text-gray-400");
+        tick.innerHTML = msg.seen ? "&#10003;&#10003;" : "&#10003;";
+        timeContainer.appendChild(tick);
+      }
+
+      bubble.appendChild(timeContainer);
+
+      msgDiv.appendChild(bubble);
+      chatBox.appendChild(msgDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      if (msg.sender !== currentUserId) {
+        socket.emit("markSeen", { threadId, userId: currentUserId });
+      }
+    });
+
+    // Auto-scroll to bottom on page load
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    // Enhanced input focus behavior
+    input.addEventListener('focus', () => {
+      setTimeout(() => {
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 100);
+    });
+  </script>
+</body>
+</html>

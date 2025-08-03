@@ -1,0 +1,149 @@
+<%- include('../partials/head') %>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 min-h-screen">
+
+  <!-- Full-width navbar wrapper -->
+  <div class="w-full">
+    <%- include('../partials/nav') %>
+  </div>
+
+  <!-- Main content with professional dark theme -->
+  <main class="relative">
+    <!-- Background overlay with subtle pattern -->
+    <div class="absolute inset-0 bg-gradient-to-br from-gray-900/50 via-slate-800/30 to-gray-900/50"></div>
+    
+    <!-- Hero Section -->
+    <div class="relative px-4 py-16">
+      <div class="max-w-7xl mx-auto text-center">
+        <!-- Welcome Title with animated gradient -->
+        <h1 class="text-6xl md:text-7xl font-black mb-6 bg-gradient-to-r from-red-500 via-pink-500 to-red-600 bg-clip-text text-transparent animate-pulse">
+          Welcome to HostSync
+        </h1>
+        
+        <!-- Subtitle with glass morphism effect -->
+        <div class="inline-block bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 px-8 py-4 shadow-2xl">
+          <h2 class="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
+            <span class="text-red-400">🏠</span>
+            Hey Host! Here is your all list of homes
+            <span class="text-red-400">✨</span>
+          </h2>
+        </div>
+      </div>
+    </div>
+
+    <!-- Homes Grid Section -->
+    <div class="relative px-4 pb-20">
+      <% if (registeredHomes.length > 0) { %>
+        <!-- Grid container with enhanced spacing -->
+        <div class="max-w-7xl mx-auto">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <% registeredHomes.forEach((home, index) => { %>
+              <div class="group relative">
+                <!-- Card with glass morphism and hover effects -->
+                <div class="bg-white/10 backdrop-blur-lg rounded-3xl overflow-hidden shadow-2xl border border-white/20 hover:border-red-400/50 transition-all duration-500 hover:scale-105 hover:shadow-red-500/20">
+                  
+                  <!-- Image Section with overlay -->
+                  <div class="relative overflow-hidden">
+                    <img src="<%= home.photo %>" alt="<%= home.houseName %>" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700">
+                    
+                    <!-- Gradient overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    
+                    <!-- Rating badge with glow effect -->
+                    <div class="absolute top-4 left-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg flex items-center gap-1">
+                      <span class="text-yellow-100">⭐</span>
+                      <%= home.rating %>
+                    </div>
+                    
+                    <!-- Index number badge -->
+                    <div class="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-pink-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm shadow-lg">
+                      <%= index + 1 %>
+                    </div>
+                  </div>
+
+                  <!-- Content Section -->
+                  <div class="p-6 space-y-4">
+                    <!-- House name with gradient text -->
+                    <h3 class="text-xl font-black text-white mb-2 group-hover:bg-gradient-to-r group-hover:from-red-400 group-hover:to-pink-400 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+                      <%= home.houseName %>
+                    </h3>
+
+                    <!-- Location with icon -->
+                    <div class="flex items-center gap-2 text-gray-300">
+                      <div class="p-2 bg-red-500/20 rounded-full">
+                        <svg class="w-4 h-4 text-red-400" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+                        </svg>
+                      </div>
+                      <span class="text-sm font-medium"><%= home.location %></span>
+                    </div>
+
+                    <!-- Price with emphasis -->
+                    <div class="flex items-center gap-2 text-gray-300">
+                      <div class="p-2 bg-green-500/20 rounded-full">
+                        <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                        </svg>
+                      </div>
+                      <span class="text-sm">
+                        <span class="font-bold text-white text-lg">₹<%= home.price %></span>
+                        <span class="text-gray-400 text-sm">/ night</span>
+                      </span>
+                    </div>
+
+                    <!-- Action buttons with professional styling -->
+                    <div class="flex gap-3 pt-4 border-t border-white/10">
+                      <!-- Edit Button -->
+                      <a href="/host/edit-home/<%=home._id%>?editing=true" class="flex-1 group/btn">
+                        <div class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-4 py-3 rounded-xl font-semibold text-sm text-center transition-all duration-300 shadow-lg hover:shadow-blue-500/30 flex items-center justify-center gap-2">
+                          <svg class="w-4 h-4 group-hover/btn:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                          </svg>
+                          Edit
+                        </div>
+                      </a>
+
+                      <!-- Delete Button -->
+                      <form action="/host/delete-home/<%= home._id %>" method="POST" class="flex-1">
+                        <button type="submit" class="w-full group/btn bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-4 py-3 rounded-xl font-semibold text-sm transition-all duration-300 shadow-lg hover:shadow-red-500/30 flex items-center justify-center gap-2">
+                          <svg class="w-4 h-4 group-hover/btn:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                          </svg>
+                          Delete
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Floating glow effect -->
+                <div class="absolute inset-0 bg-gradient-to-r from-red-500/10 to-pink-500/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+      <% } else { %>
+        <!-- Empty state with professional styling -->
+        <div class="max-w-2xl mx-auto text-center">
+          <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20 shadow-2xl">
+            <div class="text-6xl mb-6">🏠</div>
+            <h3 class="text-2xl font-bold text-white mb-4">No homes registered yet</h3>
+            <p class="text-gray-400 text-lg mb-8">Be the first to add your property and start hosting!</p>
+            <div class="bg-gradient-to-r from-red-500 to-pink-600 text-white px-8 py-4 rounded-xl font-semibold text-lg inline-block hover:from-red-600 hover:to-pink-700 transition-all duration-300 shadow-lg hover:shadow-red-500/30">
+              Add Your First Home
+            </div>
+          </div>
+        </div>
+      <% } %>
+    </div>
+
+    <!-- Floating particles effect -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden">
+      <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-red-400 rounded-full animate-ping opacity-20"></div>
+      <div class="absolute top-3/4 right-1/4 w-3 h-3 bg-pink-400 rounded-full animate-pulse opacity-20"></div>
+      <div class="absolute bottom-1/4 left-1/3 w-1 h-1 bg-blue-400 rounded-full animate-bounce opacity-30"></div>
+    </div>
+  </main>
+
+</body>
+</html>

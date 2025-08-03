@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HostSync Search - Find Your Perfect Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .morphing-bg {
+        background: linear-gradient(
+          270deg,
+          #667eea,
+          #764ba2,
+          #f093fb,
+          #f5576c,
+          #4facfe,
+          #00f2fe
+        );
+        background-size: 1200% 1200%;
+        animation: morphing 15s ease infinite;
+      }
+
+      @keyframes morphing {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .glass-effect {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .glass-strong {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(30px);
+        -webkit-backdrop-filter: blur(30px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .floating-animation {
+        animation: float 4s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        25% {
+          transform: translateY(-10px) rotate(1deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(0deg);
+        }
+        75% {
+          transform: translateY(-10px) rotate(-1deg);
+        }
+      }
+
+      .pulse-glow {
+        animation: pulse-glow 3s ease-in-out infinite;
+      }
+
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+        50% {
+          box-shadow: 0 0 40px rgba(59, 130, 246, 0.6),
+            0 0 60px rgba(59, 130, 246, 0.4);
+        }
+      }
+
+      .shimmer {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .shimmer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.4),
+          transparent
+        );
+        transition: left 0.6s;
+      }
+
+      .shimmer:hover::before {
+        left: 100%;
+      }
+
+      .input-glow:focus {
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+      }
+
+      .bouncing-blobs {
+        animation: bouncing-blobs 20s ease-in-out infinite;
+      }
+
+      @keyframes bouncing-blobs {
+        0%,
+        100% {
+          transform: translateY(0px) scale(1);
+        }
+        25% {
+          transform: translateY(-30px) scale(1.1);
+        }
+        50% {
+          transform: translateY(-60px) scale(0.9);
+        }
+        75% {
+          transform: translateY(-30px) scale(1.05);
+        }
+      }
+
+      .search-icon-spin {
+        animation: search-spin 2s linear infinite;
+      }
+
+      @keyframes search-spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .gradient-text {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+      }
+
+      .magical-border {
+        background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
+        background-size: 300% 300%;
+        animation: magical-border 4s ease infinite;
+      }
+
+      @keyframes magical-border {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .typing-effect {
+        animation: typing 4s steps(40, end) infinite;
+      }
+
+      @keyframes typing {
+        0% {
+          width: 0;
+        }
+        50% {
+          width: 100%;
+        }
+        100% {
+          width: 0;
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen morphing-bg relative overflow-x-hidden">
+    <!-- Animated Background Elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <!-- Large floating shapes -->
+      <div
+        class="absolute top-20 left-10 w-32 h-32 bg-white/10 rounded-full blur-xl bouncing-blobs"
+      ></div>
+      <div
+        class="absolute bottom-20 right-10 w-40 h-40 bg-white/10 rounded-full blur-xl bouncing-blobs"
+        style="animation-delay: -5s"
+      ></div>
+      <div
+        class="absolute top-1/2 left-1/4 w-24 h-24 bg-white/10 rounded-full blur-xl bouncing-blobs"
+        style="animation-delay: -10s"
+      ></div>
+      <div
+        class="absolute top-1/3 right-1/3 w-36 h-36 bg-white/10 rounded-full blur-xl bouncing-blobs"
+        style="animation-delay: -15s"
+      ></div>
+
+      <!-- Smaller floating particles -->
+      <div
+        class="absolute top-32 right-20 w-6 h-6 bg-white/20 rounded-full floating-animation"
+      ></div>
+      <div
+        class="absolute bottom-32 left-20 w-8 h-8 bg-white/20 rounded-full floating-animation"
+        style="animation-delay: -2s"
+      ></div>
+      <div
+        class="absolute top-2/3 left-10 w-4 h-4 bg-white/20 rounded-full floating-animation"
+        style="animation-delay: -1s"
+      ></div>
+      <div
+        class="absolute bottom-1/3 right-1/4 w-5 h-5 bg-white/20 rounded-full floating-animation"
+        style="animation-delay: -3s"
+      ></div>
+    </div>
+
+    <div class="max-w-6xl mx-auto relative z-10 p-6 sm:p-8">
+      <!-- Hero Section -->
+      <div class="text-center mb-12 relative">
+        <div class="absolute inset-0 bg-white/10 blur-3xl rounded-full"></div>
+        <div class="relative z-10">
+          <h1
+            class="text-5xl sm:text-6xl font-extrabold text-white mb-4 drop-shadow-lg"
+          >
+            <span class="inline-block floating-animation">🏠</span>
+            <span
+              class="gradient-text bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent"
+            >
+              Find Your Dream Home
+            </span>
+          </h1>
+          <p
+            class="text-xl text-white/90 font-medium drop-shadow-md max-w-2xl mx-auto"
+          >
+            Discover extraordinary stays in amazing destinations around the
+            world
+          </p>
+          <div
+            class="mt-4 flex justify-center items-center gap-2 text-white/80"
+          >
+            <span class="text-2xl">✨</span>
+            <span class="text-lg">Over 1M+ verified properties</span>
+            <span class="text-2xl">✨</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Search Form -->
+      <form
+        action="/search"
+        method="GET"
+        class="glass-strong rounded-3xl p-8 sm:p-10 shadow-2xl card-hover pulse-glow relative overflow-hidden"
+      >
+        <!-- Magical border effect -->
+        <div class="absolute inset-0 magical-border rounded-3xl p-1">
+          <div class="h-full w-full bg-white rounded-3xl"></div>
+        </div>
+
+        <div class="relative z-10">
+          <!-- Search Header -->
+          <div class="text-center mb-8">
+            <h2 class="text-2xl sm:text-3xl font-bold gradient-text mb-2">
+              Start Your Journey
+            </h2>
+            <p class="text-gray-600 text-lg">
+              Use our advanced filters to find the perfect match
+            </p>
+          </div>
+
+          <!-- Main Search Row -->
+          <div class="flex flex-col lg:flex-row gap-6 mb-8">
+            <!-- Location Search -->
+            <div class="flex-1 relative group">
+              <label
+                class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2"
+              >
+                <span class="text-xl">📍</span>
+                Where are you going?
+              </label>
+              <div class="relative">
+                <input
+                  type="text"
+                  name="location"
+                  placeholder="Search destinations..."
+                  class="w-full pl-12 pr-4 py-4 text-lg rounded-2xl border-2 border-gray-200 focus:border-blue-400 focus:ring-4 focus:ring-blue-400/20 focus:outline-none transition-all duration-300 input-glow shimmer"
+                />
+                <div
+                  class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none"
+                >
+                  <svg
+                    class="w-6 h-6 text-gray-400 group-hover:text-blue-500 transition-colors"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sort Dropdown -->
+            <div class="lg:w-80 relative group">
+              <label
+                class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2"
+              >
+                <span class="text-xl">⚡</span>
+                Sort by
+              </label>
+              <div class="relative">
+                <select
+                  name="sort"
+                  class="w-full pl-12 pr-4 py-4 text-lg border-2 border-gray-200 rounded-2xl focus:border-purple-400 focus:ring-4 focus:ring-purple-400/20 focus:outline-none transition-all duration-300 appearance-none bg-white shimmer"
+                >
+                  <option value="">Best Match</option>
+                  <option value="newest">🆕 Newest First</option>
+                  <option value="priceLowToHigh">💰 Price: Low to High</option>
+                  <option value="priceHighToLow">💎 Price: High to Low</option>
+                  <option value="ratingHighToLow">⭐ Highest Rated</option>
+                </select>
+                <div
+                  class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none"
+                >
+                  <svg
+                    class="w-6 h-6 text-gray-400 group-hover:text-purple-500 transition-colors"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none"
+                >
+                  <svg
+                    class="w-5 h-5 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Advanced Filters Section -->
+          <div class="glass-effect rounded-2xl p-6 sm:p-8 mb-8">
+            <h3
+              class="text-xl font-bold text-gray-800 mb-6 flex items-center gap-3"
+            >
+              <span class="text-2xl">🎯</span>
+              Advanced Filters
+              <div class="ml-auto text-sm text-gray-500 italic">
+                Fine-tune your search
+              </div>
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              <!-- Min Price -->
+              <div class="group">
+                <label
+                  class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2"
+                >
+                  <span class="text-lg">💵</span>
+                  Minimum Price
+                </label>
+                <div class="relative">
+                  <span
+                    class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-500 font-semibold"
+                    >$</span
+                  >
+                  <input
+                    type="number"
+                    name="minPrice"
+                    placeholder="0"
+                    class="w-full pl-8 pr-4 py-3 text-lg border-2 border-gray-200 rounded-xl focus:border-green-400 focus:ring-4 focus:ring-green-400/20 focus:outline-none transition-all duration-300 shimmer"
+                  />
+                </div>
+              </div>
+
+              <!-- Max Price -->
+              <div class="group">
+                <label
+                  class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2"
+                >
+                  <span class="text-lg">💎</span>
+                  Maximum Price
+                </label>
+                <div class="relative">
+                  <span
+                    class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-500 font-semibold"
+                    >$</span
+                  >
+                  <input
+                    type="number"
+                    name="maxPrice"
+                    placeholder="999,999"
+                    class="w-full pl-8 pr-4 py-3 text-lg border-2 border-gray-200 rounded-xl focus:border-green-400 focus:ring-4 focus:ring-green-400/20 focus:outline-none transition-all duration-300 shimmer"
+                  />
+                </div>
+              </div>
+
+              <!-- Min Rating -->
+              <div class="group">
+                <label
+                  class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2"
+                >
+                  <span class="text-lg">⭐</span>
+                  Minimum Rating
+                </label>
+                <div class="relative">
+                  <span
+                    class="absolute inset-y-0 left-0 pl-4 flex items-center text-yellow-400"
+                  >
+                    <svg
+                      class="w-5 h-5"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                  </span>
+                  <input
+                    type="number"
+                    name="minRating"
+                    placeholder="1"
+                    min="1"
+                    max="5"
+                    class="w-full pl-12 pr-4 py-3 text-lg border-2 border-gray-200 rounded-xl focus:border-yellow-400 focus:ring-4 focus:ring-yellow-400/20 focus:outline-none transition-all duration-300 shimmer"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              type="submit"
+              class="group relative px-8 py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 text-white font-bold text-lg rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 shimmer overflow-hidden"
+            >
+              <span
+                class="relative z-10 flex items-center justify-center gap-3"
+              >
+                <svg
+                  class="w-6 h-6 group-hover:search-icon-spin"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+                Search Amazing Places
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onclick="document.querySelector('form').reset()"
+              class="px-8 py-4 bg-white border-2 border-gray-300 text-gray-700 font-semibold text-lg rounded-2xl hover:bg-gray-50 hover:border-gray-400 hover:scale-105 transition-all duration-300 shimmer"
+            >
+              <span class="flex items-center justify-center gap-3">
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+                Clear Filters
+              </span>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Stats Section -->
+      <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="text-center glass-effect rounded-2xl p-6 card-hover">
+          <div class="text-3xl mb-2">🏠</div>
+          <div class="text-2xl font-bold text-white">1M+</div>
+          <div class="text-white/80">Properties</div>
+        </div>
+        <div class="text-center glass-effect rounded-2xl p-6 card-hover">
+          <div class="text-3xl mb-2">🌍</div>
+          <div class="text-2xl font-bold text-white">200+</div>
+          <div class="text-white/80">Countries</div>
+        </div>
+        <div class="text-center glass-effect rounded-2xl p-6 card-hover">
+          <div class="text-3xl mb-2">⭐</div>
+          <div class="text-2xl font-bold text-white">4.9</div>
+          <div class="text-white/80">Average Rating</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

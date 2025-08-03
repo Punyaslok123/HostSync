@@ -1,0 +1,441 @@
+<%- include('../partials/head') %> <%- include('../partials/nav') %>
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+/>
+
+<body
+  class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 relative overflow-hidden"
+>
+  <!-- Animated Background Elements -->
+  <div class="absolute inset-0 overflow-hidden">
+    <div
+      class="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"
+    ></div>
+    <div
+      class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-2000"
+    ></div>
+    <div
+      class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-4000"
+    ></div>
+  </div>
+
+  <!-- Floating Particles -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div
+      class="absolute top-1/4 left-1/4 w-2 h-2 bg-white rounded-full opacity-30 animate-bounce animation-delay-1000"
+    ></div>
+    <div
+      class="absolute top-3/4 right-1/4 w-1 h-1 bg-purple-300 rounded-full opacity-40 animate-bounce animation-delay-2000"
+    ></div>
+    <div
+      class="absolute top-1/2 left-3/4 w-1.5 h-1.5 bg-blue-300 rounded-full opacity-50 animate-bounce animation-delay-3000"
+    ></div>
+  </div>
+
+  <div
+    class="relative z-10 h-screen flex items-center justify-center px-4 py-4"
+  >
+    <div class="w-full max-w-xl">
+      <!-- Main Card -->
+      <div
+        class="backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl p-6 md:p-8 shadow-2xl relative overflow-hidden"
+      >
+        <!-- Card Glow Effect -->
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-3xl filter blur-xl"
+        ></div>
+
+        <!-- Inner Content -->
+        <div class="relative z-10">
+          <!-- Header Section -->
+          <div class="text-center mb-8">
+            <div
+              class="inline-block p-3 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full mb-4 shadow-lg"
+            >
+              <svg
+                class="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                ></path>
+              </svg>
+            </div>
+            <h2
+              class="text-3xl md:text-4xl font-black text-white mb-3 tracking-tight"
+            >
+              Reserve Your
+              <span
+                class="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent"
+              >
+                Perfect Stay
+              </span>
+            </h2>
+            <p class="text-white/80 text-base font-medium">
+              Secure your dream accommodation with our seamless booking
+              experience
+            </p>
+          </div>
+
+          <form id="bookingform" class="space-y-6">
+            <!-- Hidden Fields -->
+            <input type="hidden" name="homeId" value="<%= home._id %>" />
+            <input type="hidden" name="price" value="<%= home.price%>" />
+
+            <!-- Date Selection Card -->
+            <div class="group">
+              <div
+                class="backdrop-blur-sm bg-white/10 border border-white/20 rounded-2xl p-5 transition-all duration-300 hover:bg-white/15 hover:border-white/30 hover:shadow-xl"
+              >
+                <label
+                  for="dateRange"
+                  class="block text-white font-semibold text-base mb-3 flex items-center"
+                >
+                  <svg
+                    class="w-4 h-4 mr-2 text-purple-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    ></path>
+                  </svg>
+                  Select Your Dates
+                </label>
+                <div class="relative">
+                  <input
+                    type="text"
+                    id="dateRange"
+                    name="dateRange"
+                    class="w-full bg-white/20 border-2 border-white/30 rounded-xl px-5 py-3 text-white placeholder-white/60 font-medium text-base focus:outline-none focus:border-purple-400 focus:bg-white/25 transition-all duration-300 backdrop-blur-sm"
+                    placeholder="Click to select check-in & check-out dates"
+                    required
+                  />
+                  <div
+                    class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/60"
+                  >
+                    <svg
+                      class="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      ></path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pricing Display -->
+            <div
+              class="backdrop-blur-sm bg-gradient-to-r from-purple-500/20 to-blue-500/20 border border-white/20 rounded-2xl p-5"
+            >
+              <div class="flex items-center justify-between text-white">
+                <div class="flex items-center">
+                  <svg
+                    class="w-5 h-5 text-green-400 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
+                    ></path>
+                  </svg>
+                  <span class="text-base font-semibold">Base Price</span>
+                </div>
+                <div class="text-xl font-black">
+                  ₹<%= home.price %><span
+                    class="text-base font-normal text-white/80"
+                    >/night</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="pt-2">
+              <button
+                type="submit"
+                class="group relative w-full bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 text-white font-bold py-4 px-8 rounded-2xl overflow-hidden transition-all duration-300 hover:from-green-600 hover:via-emerald-600 hover:to-teal-600 hover:shadow-2xl hover:shadow-green-500/50 hover:-translate-y-1 transform active:scale-95 shadow-xl shadow-green-500/25"
+              >
+                <!-- Button Glow -->
+                <div
+                  class="absolute inset-0 bg-gradient-to-r from-green-400 to-teal-400 opacity-50 group-hover:opacity-75 transition-opacity duration-300 blur-sm"
+                ></div>
+
+                <!-- Button Content -->
+                <div class="relative flex items-center justify-center z-10">
+                  <svg
+                    class="w-6 h-6 mr-2 group-hover:animate-pulse"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
+                    ></path>
+                  </svg>
+                  <span class="text-xl font-black tracking-wide"
+                    >✨ PAY NOW</span
+                  >
+                </div>
+
+                <!-- Shimmer Effect -->
+                <div
+                  class="absolute inset-0 -top-1 -bottom-1 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"
+                ></div>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Trust Indicators -->
+      <div
+        class="flex items-center justify-center mt-4 space-x-6 text-white/60"
+      >
+        <div class="flex items-center">
+          <svg
+            class="w-4 h-4 text-green-400 mr-2"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="text-xs font-medium">Secure Payment</span>
+        </div>
+        <div class="flex items-center">
+          <svg
+            class="w-4 h-4 text-blue-400 mr-2"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="text-xs font-medium">Instant Confirmation</span>
+        </div>
+        <div class="flex items-center">
+          <svg
+            class="w-4 h-4 text-purple-400 mr-2"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="text-xs font-medium">24/7 Support</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const RAZORPAY_KEY = "<%= razorpayKey %>";
+  </script>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <script>
+    const form = document.getElementById("bookingform");
+    console.log("razorpay key is ", RAZORPAY_KEY);
+
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      const formData = new FormData(form);
+
+      const homeId = formData.get("homeId");
+
+      const dateRange = formData.get("dateRange");
+
+      if (!dateRange || !dateRange.includes("to")) {
+        alert("⚠️ Please select both Check-In and Check-Out dates.");
+        return;
+      }
+
+      const [checkInstr, checkOutStr] = dateRange.split(" to ");
+
+      const checkInDateObj = new Date(checkInstr);
+      const checkOutDateObj = new Date(checkOutStr);
+
+      const days = Math.ceil(
+        (checkOutDateObj - checkInDateObj) / (1000 * 60 * 60 * 24)
+      );
+
+      if (checkOutDateObj <= checkInDateObj) {
+        alert(
+          "⚠️ Please check your booking dates. Check-Out must be after Check-In."
+        );
+        return;
+      }
+
+      const checkInDate = checkInDateObj.toISOString().split("T")[0];
+      const checkOutDate = checkOutDateObj.toISOString().split("T")[0];
+
+      const baseprice = parseInt(formData.get("price"));
+      const totalAmount = baseprice * days;
+
+      try {
+        const response = await fetch("/create-order", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            homeId,
+            amount: totalAmount,
+            checkInDate,
+            checkOutDate,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (!data.success) {
+          alert("Error creating order");
+          return;
+        }
+
+        const options = {
+          key: RAZORPAY_KEY,
+          amount: data.amount,
+          currency: data.currency,
+          name: "HostSync Clone",
+          description: "Booking Payment",
+          order_id: data.orderId,
+
+          handler: async function (response) {
+            const orderId = response.razorpay_order_id;
+            const paymentId = response.razorpay_payment_id;
+            const Signature = response.razorpay_signature;
+
+            fetch("/verify-payment", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                paymentId,
+                orderId,
+                Signature,
+                homeId,
+                amount: totalAmount,
+                checkInDate,
+                checkOutDate,
+              }),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.success) {
+                  window.location.href = data.redirectUrl;
+                } else {
+                  alert("⚠️ Payment verification failed. Try again.");
+                }
+              })
+              .catch((err) => {
+                console.log("Error veryfing payment ", err);
+                alert("❌ Something went wrong. Please contact support.");
+              });
+          },
+
+          theme: {
+            color: "#6366F1",
+          },
+        };
+
+        const rzp = new Razorpay(options);
+
+        console.log("about to open razorpay");
+        rzp.open();
+      } catch (err) {
+        console.log("Error opening Razorpay:", err);
+        alert("Payment initiation failed");
+      }
+    });
+  </script>
+
+  <!-- Flatpickr JS -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  <script>
+    const bookedDates=<%- JSON.stringify(bookedDates) %>;
+
+    flatpickr("#dateRange",{
+        mode:"range",
+        minDate:"today",
+        dateFormat:"Y-m-d",
+        disable:bookedDates,
+
+        onReady: function (selectedDates, dateStr, instance) {
+          instance.open();
+        }
+    })
+  </script>
+
+  <!-- Custom Animation Styles -->
+  <style>
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .animation-delay-1000 {
+      animation-delay: 1s;
+    }
+    .animation-delay-2000 {
+      animation-delay: 2s;
+    }
+    .animation-delay-3000 {
+      animation-delay: 3s;
+    }
+    .animation-delay-4000 {
+      animation-delay: 4s;
+    }
+
+    .backdrop-blur-xl {
+      backdrop-filter: blur(16px);
+    }
+    .backdrop-blur-sm {
+      backdrop-filter: blur(4px);
+    }
+  </style>
+</body>

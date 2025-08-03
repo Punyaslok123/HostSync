@@ -1,0 +1,35 @@
+<%- include('../partials/head') %>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <%- include('../partials/nav') %>
+
+  <div class="max-w-3xl mx-auto mt-10 p-6 bg-white shadow rounded-lg">
+    <h1 class="text-2xl font-bold mb-6">📥 Your Chat Inbox</h1>
+
+    <% if (threads.length === 0) { %>
+      <p class="text-gray-500">No conversations yet.</p>
+    <% } else { %>
+      <div class="space-y-4">
+        <% threads.forEach((thread) => { %>
+          <a href="/chat/thread/<%= thread._id %>" class="block border rounded-lg p-4 hover:bg-gray-100 transition">
+            <div class="flex justify-between items-center">
+              <div>
+                <p class="font-semibold text-lg">
+                  👤 <%= thread.guest.firstName %> <%= thread.guest.lastName %>
+                </p>
+                <p class="text-gray-600 text-sm">🏠 <%= thread.home.houseName %></p>
+                <p class="text-gray-800 mt-1">
+                  💬 <%= thread.messages[0]?.message || 'No messages yet' %>
+                </p>
+              </div>
+              <p class="text-sm text-gray-500">
+                <%= new Date(thread.updatedAt).toLocaleString() %>
+              </p>
+            </div>
+          </a>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>

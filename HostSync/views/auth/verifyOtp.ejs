@@ -1,0 +1,28 @@
+<%- include('../partials/head') %>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <form action="/verify-otp" method="POST" class="bg-white p-6 rounded shadow-md w-full max-w-sm">
+    <h2 class="text-xl font-bold mb-4">Verify OTP</h2>
+    <p class="text-sm text-gray-600 mb-4">We’ve sent an OTP to your email.</p>
+
+    <% if (error) { %>
+      <div class="text-red-500 mb-2"><%= error %></div>
+    <% } %>
+    
+    <!-- since we need email in the postVerifyOtp function(this function we will triggered when submit the form to check whether the otp is right or not ) ,so the email will accessable in the req.body  -->
+    <input type="hidden" name="email" value="<%= email %>">
+
+    <input
+      type="text"
+      name="otp"
+      placeholder="Enter 6-digit OTP"
+      maxlength="6"
+      required
+      class="w-full border border-gray-300 p-2 rounded mb-4"
+    />
+
+    <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+      Verify OTP
+    </button>
+  </form>
+</body>
+</html>

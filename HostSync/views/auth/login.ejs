@@ -1,0 +1,169 @@
+<%- include('../partials/head') %>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .gradient-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gradient-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, #f093fb 0%, #f5576c 25%, #4facfe 50%, #00f2fe 75%, #43e97b 100%);
+    opacity: 0.1;
+    animation: gradientShift 15s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0%, 100% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+  }
+
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .floating-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  .input-glow:focus {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+  }
+
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    animation: orbMove 20s linear infinite;
+    max-width: 100vw;
+    z-index: 0;
+  }
+
+  @keyframes orbMove {
+    0% { transform: rotate(0deg) translateX(200px) rotate(0deg); }
+    100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  }
+
+  .shimmer {
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+    background-size: 200% 200%;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+</style>
+</head>
+
+<body class="gradient-bg min-h-screen relative flex items-center justify-center px-4 pt-24 overflow-x-hidden max-w-full">
+
+  <!-- Navbar -->
+  <div class="absolute top-0 left-0 w-full z-20">
+    <%- include('../partials/nav') %>
+  </div>
+
+  <!-- Floating Orbs -->
+  <div class="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
+    <div class="orb w-32 h-32 bg-purple-500 opacity-20 top-1/4 left-1/4"></div>
+    <div class="orb w-24 h-24 bg-blue-500 opacity-30 top-3/4 right-1/4" style="animation-delay: -10s;"></div>
+    <div class="orb w-40 h-40 bg-pink-500 opacity-15 bottom-1/4 left-1/3" style="animation-delay: -5s;"></div>
+  </div>
+
+  <!-- Login Form -->
+  <div class="relative z-30 w-full max-w-md">
+    <div class="glass-effect p-8 rounded-3xl shadow-2xl floating-animation hover:shadow-3xl transition-all duration-500">
+
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+          <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+        </div>
+        <h2 class="text-3xl font-bold text-white text-glow mb-2">Welcome Back</h2>
+        <p class="text-blue-100 text-sm">Login to your account</p>
+      </div>
+
+      <form action="/login" method="POST" class="flex flex-col gap-6 mt-8">
+        <%- include('../partials/errors') %>
+
+        <!-- Email -->
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+            </svg>
+          </div>
+          <input class="glass-effect w-full pl-10 pr-4 py-4 rounded-xl text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 input-glow transition-all duration-300"
+            placeholder="Enter your email" type="email" name="email"
+            value="<%= oldInput.email ? oldInput.email : '' %>" required />
+        </div>
+
+        <!-- Password -->
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+          </div>
+          <input class="glass-effect w-full pl-10 pr-4 py-4 rounded-xl text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 input-glow transition-all duration-300"
+            placeholder="Enter your password" type="password" name="password" required />
+        </div>
+
+        <!-- Login Button -->
+        <button type="submit"
+          class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold py-4 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg shimmer">
+          <span class="flex items-center justify-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013 3v1" />
+            </svg>
+            Sign in
+          </span>
+        </button>
+
+        <!-- Forgot Password -->
+        <a href="/forget-password"
+          class="block w-full text-center bg-gradient-to-r from-indigo-500 to-blue-600 text-white font-semibold py-4 rounded-xl hover:from-indigo-600 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+          <span class="flex items-center justify-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+            </svg>
+            Forgot Password
+          </span>
+        </a>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

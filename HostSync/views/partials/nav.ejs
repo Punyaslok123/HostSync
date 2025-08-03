@@ -1,0 +1,329 @@
+<header class="morphing-bg shadow-2xl relative overflow-hidden z-50">
+  <!-- Animated background elements -->
+  <div class="absolute inset-0 overflow-hidden">
+    <div
+      class="absolute -top-40 -right-40 w-80 h-80 bg-white opacity-10 rounded-full blur-3xl floating-animation"
+    ></div>
+    <div
+      class="absolute -bottom-40 -left-40 w-80 h-80 bg-white opacity-10 rounded-full blur-3xl floating-animation"
+      style="animation-delay: -1.5s"
+    ></div>
+  </div>
+
+  <nav class="max-w-7xl mx-auto relative z-10">
+    <div class="flex justify-between items-center px-6 py-4">
+      <!-- Logo / Title -->
+      <div class="flex items-center">
+        <h1
+          class="text-3xl font-bold tracking-wide flex items-center gap-3 text-white drop-shadow-lg"
+        >
+          <span class="text-4xl floating-animation">🏠</span>
+          <span
+            class="bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent"
+          >
+            HostSync 
+          </span>
+        </h1>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden lg:flex items-center space-x-2">
+        <a
+          href="/"
+          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300 pulse-glow"
+        >
+          <span class="flex items-center gap-2">
+            <span>🏡</span>
+            HostSync
+          </span>
+        </a>
+
+        <% if (isLoggedIn) { %> <% if (user && user.UserType === 'guest') { %>
+        <a
+          href="/homes"
+          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
+        >
+          <span class="flex items-center gap-2">🏘️ Home Lists</span>
+        </a>
+        <a
+          href="/bookings"
+          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
+        >
+          <span class="flex items-center gap-2">📅 Bookings</span>
+        </a>
+        <a
+          href="/favourite-list"
+          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
+        >
+          <span class="flex items-center gap-2">❤️ Favourites</span>
+        </a>
+        <% } else { %>
+        <a
+          href="/host-homes"
+          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
+        >
+          <span class="flex items-center gap-2">🏠 Host Homes</span>
+        </a>
+        <a
+          href="/host/edit-home"
+          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
+        >
+          <span class="flex items-center gap-2">➕ Add Home</span>
+        </a>
+
+        <a
+          href="/inbox"
+          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
+        >
+          <span class="flex items-center gap-2">📩 Inbox</span>
+        </a>
+        <% } %> <% if (user && user.UserType === 'admin') { %>
+        <a
+          href="/dashboard"
+          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
+        >
+          <span class="flex items-center gap-2">👑 Admin Dashboard</span>
+        </a>
+        <% } else if (user && user.UserType !== 'admin') { %>
+        <a
+          onclick="alert('You can’t access this page because you are not part of admin')"
+          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300 cursor-not-allowed opacity-70"
+        >
+          <span class="flex items-center gap-2">🔒 Admin Dashboard</span>
+        </a>
+        <% } %>
+
+        <form action="/logout" method="POST" class="inline-block">
+          <button
+            class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
+          >
+            <span class="flex items-center gap-2">🚪 Logout</span>
+          </button>
+        </form>
+        <% } else { %>
+        <a
+          href="/signup"
+          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
+        >
+          <span class="flex items-center gap-2">👤 Sign Up</span>
+        </a>
+        <a
+          href="/login"
+          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
+        >
+          <span class="flex items-center gap-2">🔐 Login</span>
+        </a>
+        <% } %>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button class="lg:hidden hamburger z-20" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu lg:hidden fixed inset-0 z-10 glass-effect">
+    <div
+      class="flex flex-col justify-center items-center h-full space-y-6 px-6"
+    >
+      <!-- Similar mobile menu structure here as desktop -->
+      <!-- Reuse same if/else logic for isLoggedIn -->
+
+      <a
+        href="/"
+        class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
+        >🏡 Go Home</a
+      >
+
+      <% if (isLoggedIn) { %> <% if (user && user.UserType === 'guest') { %>
+      <a
+        href="/homes"
+        class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
+        >🏘️ Home Lists</a
+      >
+      <a
+        href="/bookings"
+        class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
+        >📅 Bookings</a
+      >
+      <a
+        href="/favourite-list"
+        class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
+        >❤️ Favourites</a
+      >
+      <% } else { %>
+      <a
+        href="/host-homes"
+        class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
+        >🏠 Host Homes</a
+      >
+      <a
+        href="/host/edit-home"
+        class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
+        >➕ Add Home</a
+      >
+      <a
+        href="/inbox"
+        class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
+        >📩 Inbox</a
+      >
+      <% } %> <% if (user && user.UserType === 'admin') { %>
+      <a
+        href="/dashboard"
+        class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
+        >👑 Admin Dashboard</a
+      >
+      <% } else if (user && user.UserType !== 'admin') { %>
+      <a
+        onclick="alert('You can’t access this page because you are not part of admin')"
+        class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
+        >🔒 Admin Dashboard</a
+      >
+      <% } %>
+
+      <form action="/logout" method="POST">
+        <button
+          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
+        >
+          🚪 Logout
+        </button>
+      </form>
+      <% } else { %>
+      <a
+        href="/signup"
+        class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
+        >👤 Sign Up</a
+      >
+      <a
+        href="/login"
+        class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
+        >🔐 Login</a
+      >
+      <% } %>
+    </div>
+  </div>
+</header>
+
+<script>
+  function toggleMobileMenu() {
+    const mobileMenu = document.querySelector(".mobile-menu");
+    const hamburger = document.querySelector(".hamburger");
+    mobileMenu.classList.toggle("active");
+    hamburger.classList.toggle("active");
+  }
+
+  document.querySelectorAll(".mobile-menu a").forEach((link) => {
+    link.addEventListener("click", () => toggleMobileMenu());
+  });
+</script>
+
+<style>
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .nav-link {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nav-link::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transition: left 0.5s;
+  }
+
+  .nav-link:hover::before {
+    left: 100%;
+  }
+
+  .floating-animation {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes pulse-glow {
+    from {
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+    to {
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  .mobile-menu {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .mobile-menu.active {
+    transform: translateX(0);
+  }
+
+  .hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: white;
+    margin: 5px 0;
+    transition: 0.3s;
+  }
+
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+  }
+
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+  }
+
+  .morphing-bg {
+    background: linear-gradient(270deg, #667eea, #764ba2, #f093fb, #f5576c);
+    background-size: 800% 800%;
+    animation: morphing 8s ease infinite;
+  }
+
+  @keyframes morphing {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+</style>

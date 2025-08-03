@@ -1,0 +1,161 @@
+<%- include('../partials/head') %>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-rose-900 to-purple-900 min-h-screen overflow-x-hidden">
+
+  <%- include('../partials/nav') %>
+
+  <!-- Prevent horizontal scroll -->
+  <div class="max-w-[100vw] overflow-x-hidden">
+
+    <!-- Animated Background Elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+      <div class="absolute -top-40 -right-40 w-96 h-96 bg-rose-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+      <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style="animation-delay: 2s;"></div>
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style="animation-delay: 4s;"></div>
+    </div>
+
+    <main class="relative z-10 flex flex-col items-center gap-12 py-16 px-4">
+
+      <!-- Hero Section -->
+      <div class="text-center space-y-8 max-w-4xl mx-auto">
+        <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-r from-rose-500 via-pink-500 to-purple-500 rounded-full shadow-2xl shadow-rose-500/50 animate-pulse mb-6">
+          <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+
+        <h1 class="text-5xl sm:text-7xl font-black bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 bg-clip-text text-transparent drop-shadow-2xl animate-pulse">
+          Welcome to HostSync
+        </h1>
+
+        <div class="relative">
+          <h2 class="text-4xl font-bold text-white mb-4 tracking-wide">Your Favorite Destinations</h2>
+          <div class="w-40 h-1 bg-gradient-to-r from-rose-500 via-pink-500 to-purple-500 mx-auto rounded-full shadow-lg shadow-rose-500/50"></div>
+        </div>
+
+        <p class="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+          Your handpicked collection of amazing places you love
+        </p>
+      </div>
+
+      <!-- Homes Grid -->
+      <div class="w-full max-w-7xl mx-auto px-4">
+        <% if (FavouriteHomes.length > 0) { %>
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+            <% FavouriteHomes.forEach((home, index) => { %>
+              <div class="group relative bg-white/10 backdrop-blur-xl rounded-3xl overflow-hidden border border-white/20 hover:border-white/40 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-rose-500/25 animate-fade-in-up" style="animation-delay: <%= index * 150 %>ms;">
+                
+                <!-- Gradient Overlay -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
+
+                <!-- Image -->
+                <div class="relative overflow-hidden">
+                  <img src="<%= home.photo %>" alt="<%= home.houseName %>" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700" />
+
+                  <!-- Rating -->
+                  <div class="absolute top-4 left-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-xl backdrop-blur-sm flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    <%= home.rating %>
+                  </div>
+
+                  <!-- Favorite Heart -->
+                  <div class="absolute top-4 right-4 bg-rose-500 text-white p-2 rounded-full shadow-xl backdrop-blur-sm animate-pulse">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- Content -->
+                <div class="p-6 relative z-10">
+                  <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-rose-300 transition-colors duration-300">
+                    <%= home.houseName %>
+                  </h3>
+
+                  <div class="flex items-center gap-2 text-gray-300 mb-4">
+                    <svg class="w-5 h-5 text-rose-400" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+                    </svg>
+                    <span class="text-lg"><%= home.location %></span>
+                  </div>
+
+                  <div class="flex items-center justify-between mb-6">
+                    <div class="text-white">
+                      <span class="text-3xl font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">₹<%= home.price %></span>
+                      <span class="text-gray-400 text-lg">/ night</span>
+                    </div>
+                  </div>
+
+                  <!-- Remove Button -->
+                  <form action="/favourities/delete/<%= home._id %>" method="POST" class="w-full">
+                    <button type="submit" class="w-full bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center gap-2">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                      </svg>
+                      Remove from Favorites
+                    </button>
+                  </form>
+                </div>
+
+                <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-rose-500 via-pink-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+            <% }) %>
+          </div>
+        <% } else { %>
+          <div class="text-center py-24">
+            <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-16 border border-white/20 max-w-2xl mx-auto shadow-2xl">
+              <div class="w-32 h-32 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-rose-500/50">
+                <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+              </div>
+              <h3 class="text-4xl font-bold text-white mb-6">No Favorites Yet</h3>
+              <p class="text-gray-300 text-xl mb-10 max-w-md mx-auto leading-relaxed">Start exploring amazing places and add them to your favorites to see them here!</p>
+              <a href="/" class="inline-flex items-center px-10 py-4 bg-gradient-to-r from-rose-500 to-pink-600 text-white font-bold rounded-xl hover:from-rose-600 hover:to-pink-700 transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                Explore Properties
+              </a>
+            </div>
+          </div>
+        <% } %>
+      </div>
+
+      <!-- Footer Decoration -->
+      <div class="mt-20 w-full max-w-4xl mx-auto">
+        <div class="h-px bg-gradient-to-r from-transparent via-rose-500 to-transparent"></div>
+        <div class="text-center mt-8 text-gray-400">
+          <p class="text-xl">❤️ Your Curated Collection of Dream Stays</p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <style>
+    @keyframes fade-in-up {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fade-in-up {
+      animation: fade-in-up 0.8s ease-out forwards;
+      opacity: 0;
+    }
+
+    .backdrop-blur-xl {
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+    }
+  </style>
+</body>
+</html>
