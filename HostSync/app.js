@@ -54,27 +54,6 @@ const randomString = (length) => {
   return str;
 };
 
-// const storage = multer.diskStorage({
-//   destination: (req, res, cb) => {
-//     cb(null, "uploads/");
-//   },
-
-//   filename: (req, file, cb) => {
-//     cb(null, randomString(10) + "-" + file.originalname);
-//   },
-// });
-
-// const fileFilter = (req, file, cb) => {
-//   if (
-//     file.mimetype === "image/png" ||
-//     file.mimetype === "image/jpeg" ||
-//     file.mimetype === "image/jpg"
-//   ) {
-//     cb(null, true);
-//   } else cb(null, false);
-// };
-
-// app.use(multer({ storage, fileFilter }).single("photo"));
 
 app.set("view engine", "ejs");
 app.set("views", "views");
