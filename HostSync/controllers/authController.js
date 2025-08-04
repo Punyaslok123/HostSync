@@ -477,7 +477,7 @@ exports.postVerifyOtp = async (req, res) => {
 
 
 exports.termsAndConditions=async (req,res,next)=>{
-       res.render("auth/terms_condition", {
+       res.render("auth/terms-condition", {
          pageTitle: "Terms and condition",
          isLoggedIn: false,
          user: {},
