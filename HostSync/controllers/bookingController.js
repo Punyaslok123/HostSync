@@ -396,7 +396,7 @@ exports.generateReceipt = async (req, res, next) => {
     // next step - the verification receipt (QR Code)
 
     // create a verify Url , this url will be encoded in the QR code(it means when someone scan the QR code this link will open )
-    const verifyUrl = `/verify-booking/${bookingId}`;
+    const verifyUrl = `https://hostsync-j3um.onrender.com/verify-booking/${bookingId}`;
 
     const qrCodeDataURL = await QRCode.toDataURL(verifyUrl);
 
