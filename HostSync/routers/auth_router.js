@@ -34,4 +34,9 @@ authRouter.post("/verify-otp", authController.postVerifyOtp);
 
 // now implement the postResetPassword functionality in the authController 
 
+
+authRouter.get("/termsandconditions",authController.termsAndConditions);
+
+authRouter.get("/privacypolicy",authController.privacyPolicy);
+
 module.exports = authRouter;

@@ -474,3 +474,20 @@ exports.postVerifyOtp = async (req, res) => {
 
   res.redirect("/login");
 };
+
+
+exports.termsAndConditions=async (req,res,next)=>{
+       res.render("auth/terms_condition", {
+         pageTitle: "Terms and condition",
+         isLoggedIn: false,
+         user: {},
+       });
+}
+
+exports.privacyPolicy=async (req,res,next) => {
+          res.render("auth/privacy-policy", {
+            pageTitle: "Privacy Policy",
+            isLoggedIn: false,
+            user: {},
+          });
+}
