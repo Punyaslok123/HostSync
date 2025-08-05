@@ -279,7 +279,7 @@ exports.postForgetPassword = async (req, res, next) => {
     subject: "Password Reset",
     html: `
   <p>You requested a password reset</p>
-  <p>Click this <a href="http://localhost:3009/reset-password/${token}">link</a> to reset your password.</p>
+  <p>Click this <a href="https://hostsync-j3um.onrender.com/reset-password/${token}">link</a> to reset your password.</p>
 `,
   });
   res.redirect("/login");
