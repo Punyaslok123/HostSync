@@ -207,7 +207,7 @@ exports.postSignUp = [
         service: "gmail",
         auth: {
           user: "punyashloknath@gmail.com",
-          pass: "dxlo yzkg tkpq gald",
+          pass: "aqyl brwi amsq rimp",
         },
       });
 
@@ -270,7 +270,7 @@ exports.postForgetPassword = async (req, res, next) => {
 
     auth: {
       user: "punyashloknath@gmail.com",
-      pass: "dxlo yzkg tkpq gald",
+      pass: "aqyl brwi amsq rimp",
     },
   });
   await transporter.sendMail({
