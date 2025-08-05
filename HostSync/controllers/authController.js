@@ -270,7 +270,7 @@ exports.postForgetPassword = async (req, res, next) => {
 
     auth: {
       user: "punyashloknath@gmail.com",
-      pass: "ifso tlmr wyyn lqtq",
+      pass: "dxlo yzkg tkpq gald",
     },
   });
   await transporter.sendMail({
