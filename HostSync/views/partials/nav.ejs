@@ -7,7 +7,7 @@
 
   <nav class="max-w-7xl mx-auto relative z-10">
     <div class="flex justify-between items-center px-6 py-4">
-      <!-- Logo / Title -->
+      <!-- Logo -->
       <div class="flex items-center">
         <h1 class="text-3xl font-bold tracking-wide flex items-center gap-3 text-white drop-shadow-lg">
           <span class="text-4xl floating-animation">🏠</span>
@@ -17,40 +17,58 @@
         </h1>
       </div>
 
-      <!-- Desktop Navigation -->
+      <!-- Desktop Nav -->
       <div class="hidden lg:flex items-center space-x-2">
-        <a href="/" class="nav-link glass-effect black-border px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300 pulse-glow">
-          <span class="flex items-center gap-2">
-            <span>🏡</span> HostSync
-          </span>
+        <a href="/" class="nav-link glass-effect black-border px-6 py-3 rounded-full font-semibold text-[#1a1a1a] hover:scale-105 transform transition duration-300 pulse-glow">
+          <span class="flex items-center gap-2">🏡 HostSync</span>
         </a>
 
         <% if (isLoggedIn) { %>
           <% if (user && user.UserType === 'guest') { %>
-            <a href="/homes" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">🏘️ Home Lists</a>
-            <a href="/bookings" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">📅 Bookings</a>
-            <a href="/favourite-list" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">❤️ Favourites</a>
+            <a href="/homes" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">
+              <span class="flex items-center gap-2">🏘️ Home Lists</span>
+            </a>
+            <a href="/bookings" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">
+              <span class="flex items-center gap-2">📅 Bookings</span>
+            </a>
+            <a href="/favourite-list" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">
+              <span class="flex items-center gap-2">❤️ Favourites</span>
+            </a>
           <% } else { %>
-            <a href="/host-homes" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">🏠 Host Homes</a>
-            <a href="/host/edit-home" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">➕ Add Home</a>
-            <a href="/inbox" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">📩 Inbox</a>
+            <a href="/host-homes" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">
+              <span class="flex items-center gap-2">🏠 Host Homes</span>
+            </a>
+            <a href="/host/edit-home" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">
+              <span class="flex items-center gap-2">➕ Add Home</span>
+            </a>
+            <a href="/inbox" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">
+              <span class="flex items-center gap-2">📩 Inbox</span>
+            </a>
           <% } %>
+
           <% if (user && user.UserType === 'admin') { %>
-            <a href="/dashboard" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">👑 Admin Dashboard</a>
+            <a href="/dashboard" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">
+              <span class="flex items-center gap-2">👑 Admin Dashboard</span>
+            </a>
           <% } else if (user && user.UserType !== 'admin') { %>
-            <a onclick="alert('You can’t access this page because you are not part of admin')" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300 cursor-not-allowed opacity-70">🔒 Admin Dashboard</a>
+            <a onclick="alert('You can’t access this page because you are not part of admin')" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300 cursor-not-allowed opacity-70">
+              <span class="flex items-center gap-2">🔒 Admin Dashboard</span>
+            </a>
           <% } %>
 
           <form action="/logout" method="POST" class="inline-block">
-            <button class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">🚪 Logout</button>
+            <button class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">
+              <span class="flex items-center gap-2">🚪 Logout</span>
+            </button>
           </form>
+
         <% } else { %>
-          <a href="/signup" class="nav-link glass-effect black-border px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">👤 Sign Up</a>
-          <a href="/login" class="nav-link glass-effect black-border px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">🔐 Login</a>
+          <a href="/signup" class="nav-link glass-effect black-border px-6 py-3 rounded-full font-semibold text-[#1a1a1a] hover:scale-105 transform transition duration-300">👤 Sign Up</a>
+          <a href="/login" class="nav-link glass-effect black-border px-6 py-3 rounded-full font-semibold text-[#1a1a1a] hover:scale-105 transform transition duration-300">🔐 Login</a>
         <% } %>
       </div>
 
-      <!-- Mobile Menu Button -->
+      <!-- Hamburger for Mobile -->
       <button class="lg:hidden hamburger z-20" onclick="toggleMobileMenu()">
         <span></span><span></span><span></span>
       </button>
@@ -60,7 +78,7 @@
   <!-- Mobile Menu -->
   <div class="mobile-menu lg:hidden fixed inset-0 z-10 glass-effect">
     <div class="flex flex-col justify-center items-center h-full space-y-6 px-6">
-      <a href="/" class="nav-link glass-effect black-border px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">🏡 Go Home</a>
+      <a href="/" class="nav-link glass-effect black-border px-6 py-3 rounded-full font-semibold text-[#1a1a1a] hover:scale-105 transform transition duration-300">🏡 Go Home</a>
 
       <% if (isLoggedIn) { %>
         <% if (user && user.UserType === 'guest') { %>
@@ -72,6 +90,7 @@
           <a href="/host/edit-home" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">➕ Add Home</a>
           <a href="/inbox" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">📩 Inbox</a>
         <% } %>
+
         <% if (user && user.UserType === 'admin') { %>
           <a href="/dashboard" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">👑 Admin Dashboard</a>
         <% } else if (user && user.UserType !== 'admin') { %>
@@ -81,9 +100,10 @@
         <form action="/logout" method="POST">
           <button class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">🚪 Logout</button>
         </form>
+
       <% } else { %>
-        <a href="/signup" class="nav-link glass-effect black-border px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">👤 Sign Up</a>
-        <a href="/login" class="nav-link glass-effect black-border px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">🔐 Login</a>
+        <a href="/signup" class="nav-link glass-effect black-border px-6 py-3 rounded-full font-semibold text-[#1a1a1a] hover:scale-105 transform transition duration-300">👤 Sign Up</a>
+        <a href="/login" class="nav-link glass-effect black-border px-6 py-3 rounded-full font-semibold text-[#1a1a1a] hover:scale-105 transform transition duration-300">🔐 Login</a>
       <% } %>
     </div>
   </div>
