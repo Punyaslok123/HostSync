@@ -140,26 +140,24 @@
     </div>
     
     <div id="chat-box" class="flex-1 overflow-y-auto p-6 space-y-4 scrollbar-hide">
-  <% 
-    let previousDate = null;
-    const today = new Date().toDateString();
-    const yesterday = new Date(Date.now() - 86400000).toDateString();
+   
+      <% 
+  let previousDate = null;
+  const today = new Date().toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' });
+  const yesterday = new Date(Date.now() - 86400000).toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' });
 
-    messages.forEach((msg) => {
-      const msgDate = new Date(msg.createdAt).toLocaleDateString('en-IN', {
-  timeZone: 'Asia/Kolkata'
-});
+  messages.forEach((msg) => {
+    const msgDate = new Date(msg.createdAt).toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' });
+    const isSender = msg.sender._id.toString() === currentUserId.toString();
 
-      const isSender = msg.sender._id.toString() === currentUserId.toString();
+    const showDateSeparator = msgDate !== previousDate;
+    previousDate = msgDate;
 
-      
-      const showDateSeparator = msgDate !== previousDate;
-      previousDate = msgDate;
+    let dateLabel = msgDate;
+    if (msgDate === today) dateLabel = "Today";
+    else if (msgDate === yesterday) dateLabel = "Yesterday";
+%>
 
-      let dateLabel = msgDate;
-      if (msgDate === today) dateLabel = "Today";
-      else if (msgDate === yesterday) dateLabel = "Yesterday";
-  %>
 
     <% if (showDateSeparator) { %>
       <div class="text-center text-xs text-gray-600 my-2 font-medium">
