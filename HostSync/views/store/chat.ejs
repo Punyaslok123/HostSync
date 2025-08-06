@@ -146,7 +146,10 @@
     const yesterday = new Date(Date.now() - 86400000).toDateString();
 
     messages.forEach((msg) => {
-      const msgDate = new Date(msg.createdAt).toDateString();
+      const msgDate = new Date(msg.createdAt).toLocaleDateString('en-IN', {
+  timeZone: 'Asia/Kolkata'
+});
+
       const isSender = msg.sender._id.toString() === currentUserId.toString();
 
       
@@ -170,6 +173,7 @@
         <div class="flex items-center justify-end gap-1 mt-1">
           <div class="time-badge text-xs text-gray-500">
             <%= new Date(msg.createdAt).toLocaleTimeString("en-IN", {
+              timeZone: 'Asia/Kolkata',
               hour: '2-digit',
               minute: '2-digit',
               hour12: true
@@ -278,6 +282,7 @@
       const timeDiv = document.createElement("div");
       timeDiv.classList.add("time-badge", "text-xs", "text-gray-500");
       timeDiv.textContent = createdAt.toLocaleTimeString("en-IN", {
+        timeZone:'Asia/Kolkata',
         hour: '2-digit',
         minute: '2-digit',
         hour12: true
