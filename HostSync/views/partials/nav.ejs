@@ -1,26 +1,17 @@
 <header class="morphing-bg shadow-2xl relative overflow-hidden z-50">
   <!-- Animated background elements -->
   <div class="absolute inset-0 overflow-hidden">
-    <div
-      class="absolute -top-40 -right-40 w-80 h-80 bg-white opacity-10 rounded-full blur-3xl floating-animation"
-    ></div>
-    <div
-      class="absolute -bottom-40 -left-40 w-80 h-80 bg-white opacity-10 rounded-full blur-3xl floating-animation"
-      style="animation-delay: -1.5s"
-    ></div>
+    <div class="absolute -top-40 -right-40 w-80 h-80 bg-white opacity-10 rounded-full blur-3xl floating-animation"></div>
+    <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-white opacity-10 rounded-full blur-3xl floating-animation" style="animation-delay: -1.5s"></div>
   </div>
 
   <nav class="max-w-7xl mx-auto relative z-10">
     <div class="flex justify-between items-center px-6 py-4">
       <!-- Logo / Title -->
       <div class="flex items-center">
-        <h1
-          class="text-3xl font-bold tracking-wide flex items-center gap-3 text-white drop-shadow-lg"
-        >
+        <h1 class="text-3xl font-bold tracking-wide flex items-center gap-3 text-white drop-shadow-lg">
           <span class="text-4xl floating-animation">🏠</span>
-          <span
-            class="bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent"
-          >
+          <span class="bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
             HostSync 
           </span>
         </h1>
@@ -28,91 +19,34 @@
 
       <!-- Desktop Navigation -->
       <div class="hidden lg:flex items-center space-x-2">
-        <a
-          href="/"
-          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300 pulse-glow"
-        >
+        <a href="/" class="nav-link glass-effect black-border px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300 pulse-glow">
           <span class="flex items-center gap-2">
-            <span>🏡</span>
-            HostSync
+            <span>🏡</span> HostSync
           </span>
         </a>
 
-        <% if (isLoggedIn) { %> <% if (user && user.UserType === 'guest') { %>
-        <a
-          href="/homes"
-          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
-        >
-          <span class="flex items-center gap-2">🏘️ Home Lists</span>
-        </a>
-        <a
-          href="/bookings"
-          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
-        >
-          <span class="flex items-center gap-2">📅 Bookings</span>
-        </a>
-        <a
-          href="/favourite-list"
-          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
-        >
-          <span class="flex items-center gap-2">❤️ Favourites</span>
-        </a>
-        <% } else { %>
-        <a
-          href="/host-homes"
-          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
-        >
-          <span class="flex items-center gap-2">🏠 Host Homes</span>
-        </a>
-        <a
-          href="/host/edit-home"
-          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
-        >
-          <span class="flex items-center gap-2">➕ Add Home</span>
-        </a>
+        <% if (isLoggedIn) { %>
+          <% if (user && user.UserType === 'guest') { %>
+            <a href="/homes" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">🏘️ Home Lists</a>
+            <a href="/bookings" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">📅 Bookings</a>
+            <a href="/favourite-list" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">❤️ Favourites</a>
+          <% } else { %>
+            <a href="/host-homes" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">🏠 Host Homes</a>
+            <a href="/host/edit-home" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">➕ Add Home</a>
+            <a href="/inbox" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">📩 Inbox</a>
+          <% } %>
+          <% if (user && user.UserType === 'admin') { %>
+            <a href="/dashboard" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">👑 Admin Dashboard</a>
+          <% } else if (user && user.UserType !== 'admin') { %>
+            <a onclick="alert('You can’t access this page because you are not part of admin')" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300 cursor-not-allowed opacity-70">🔒 Admin Dashboard</a>
+          <% } %>
 
-        <a
-          href="/inbox"
-          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
-        >
-          <span class="flex items-center gap-2">📩 Inbox</span>
-        </a>
-        <% } %> <% if (user && user.UserType === 'admin') { %>
-        <a
-          href="/dashboard"
-          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
-        >
-          <span class="flex items-center gap-2">👑 Admin Dashboard</span>
-        </a>
-        <% } else if (user && user.UserType !== 'admin') { %>
-        <a
-          onclick="alert('You can’t access this page because you are not part of admin')"
-          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300 cursor-not-allowed opacity-70"
-        >
-          <span class="flex items-center gap-2">🔒 Admin Dashboard</span>
-        </a>
-        <% } %>
-
-        <form action="/logout" method="POST" class="inline-block">
-          <button
-            class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
-          >
-            <span class="flex items-center gap-2">🚪 Logout</span>
-          </button>
-        </form>
+          <form action="/logout" method="POST" class="inline-block">
+            <button class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">🚪 Logout</button>
+          </form>
         <% } else { %>
-        <a
-          href="/signup"
-          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
-        >
-          <span class="flex items-center gap-2">👤 Sign Up</span>
-        </a>
-        <a
-          href="/login"
-          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
-        >
-          <span class="flex items-center gap-2">🔐 Login</span>
-        </a>
+          <a href="/signup" class="nav-link glass-effect black-border px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">👤 Sign Up</a>
+          <a href="/login" class="nav-link glass-effect black-border px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">🔐 Login</a>
         <% } %>
       </div>
 
@@ -125,82 +59,31 @@
 
   <!-- Mobile Menu -->
   <div class="mobile-menu lg:hidden fixed inset-0 z-10 glass-effect">
-    <div
-      class="flex flex-col justify-center items-center h-full space-y-6 px-6"
-    >
-      <!-- Similar mobile menu structure here as desktop -->
-      <!-- Reuse same if/else logic for isLoggedIn -->
+    <div class="flex flex-col justify-center items-center h-full space-y-6 px-6">
+      <a href="/" class="nav-link glass-effect black-border px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">🏡 Go Home</a>
 
-      <a
-        href="/"
-        class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
-        >🏡 Go Home</a
-      >
+      <% if (isLoggedIn) { %>
+        <% if (user && user.UserType === 'guest') { %>
+          <a href="/homes" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">🏘️ Home Lists</a>
+          <a href="/bookings" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">📅 Bookings</a>
+          <a href="/favourite-list" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">❤️ Favourites</a>
+        <% } else { %>
+          <a href="/host-homes" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">🏠 Host Homes</a>
+          <a href="/host/edit-home" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">➕ Add Home</a>
+          <a href="/inbox" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">📩 Inbox</a>
+        <% } %>
+        <% if (user && user.UserType === 'admin') { %>
+          <a href="/dashboard" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">👑 Admin Dashboard</a>
+        <% } else if (user && user.UserType !== 'admin') { %>
+          <a onclick="alert('You can’t access this page because you are not part of admin')" class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">🔒 Admin Dashboard</a>
+        <% } %>
 
-      <% if (isLoggedIn) { %> <% if (user && user.UserType === 'guest') { %>
-      <a
-        href="/homes"
-        class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
-        >🏘️ Home Lists</a
-      >
-      <a
-        href="/bookings"
-        class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
-        >📅 Bookings</a
-      >
-      <a
-        href="/favourite-list"
-        class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
-        >❤️ Favourites</a
-      >
+        <form action="/logout" method="POST">
+          <button class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">🚪 Logout</button>
+        </form>
       <% } else { %>
-      <a
-        href="/host-homes"
-        class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
-        >🏠 Host Homes</a
-      >
-      <a
-        href="/host/edit-home"
-        class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
-        >➕ Add Home</a
-      >
-      <a
-        href="/inbox"
-        class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
-        >📩 Inbox</a
-      >
-      <% } %> <% if (user && user.UserType === 'admin') { %>
-      <a
-        href="/dashboard"
-        class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
-        >👑 Admin Dashboard</a
-      >
-      <% } else if (user && user.UserType !== 'admin') { %>
-      <a
-        onclick="alert('You can’t access this page because you are not part of admin')"
-        class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
-        >🔒 Admin Dashboard</a
-      >
-      <% } %>
-
-      <form action="/logout" method="POST">
-        <button
-          class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
-        >
-          🚪 Logout
-        </button>
-      </form>
-      <% } else { %>
-      <a
-        href="/signup"
-        class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
-        >👤 Sign Up</a
-      >
-      <a
-        href="/login"
-        class="nav-link glass-effect px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300"
-        >🔐 Login</a
-      >
+        <a href="/signup" class="nav-link glass-effect black-border px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">👤 Sign Up</a>
+        <a href="/login" class="nav-link glass-effect black-border px-6 py-3 rounded-full font-semibold text-white hover:scale-105 transform transition duration-300">🔐 Login</a>
       <% } %>
     </div>
   </div>
@@ -239,12 +122,7 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.3),
-      transparent
-    );
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
     transition: left 0.5s;
   }
 
@@ -257,8 +135,7 @@
   }
 
   @keyframes float {
-    0%,
-    100% {
+    0%, 100% {
       transform: translateY(0);
     }
     50% {
@@ -325,5 +202,9 @@
     100% {
       background-position: 0% 50%;
     }
+  }
+
+  .black-border {
+    border: 2px solid black;
   }
 </style>
