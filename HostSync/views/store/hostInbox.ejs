@@ -17,7 +17,10 @@
                 <p class="font-semibold text-lg">
                   👤 <%= thread.guest.firstName %> <%= thread.guest.lastName %>
                 </p>
-                <p class="text-gray-600 text-sm">🏠 <%= thread.home.houseName %></p>
+                <p class="text-gray-600 text-sm">
+  🏠 <%= thread.home ? thread.home.houseName : '[Deleted Home]' %>
+</p>
+
                 <p class="text-gray-800 mt-1">
                   💬 <%= thread.messages[0]?.message || 'No messages yet' %>
                 </p>
