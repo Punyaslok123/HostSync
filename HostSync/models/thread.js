@@ -9,12 +9,12 @@ const threadSchema=new mongoose.Schema({
     },
     host: {
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Home",
+        ref:"user",
         required:true,
     },
     home: {
         type:mongoose.Schema.Types.ObjectId,
-        ref:"user",
+        ref:"Home",
         required:true,
     },
     lastMessageAt: {
