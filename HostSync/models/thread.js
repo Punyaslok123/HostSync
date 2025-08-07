@@ -14,7 +14,7 @@ const threadSchema=new mongoose.Schema({
     },
     home: {
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Home",
+        ref:"user",
         required:true,
     },
     lastMessageAt: {
